@@ -12,6 +12,36 @@
 
   <div class="app-container">
 
+    <!-- Background modal popup  -->
+    <div class="blur">
+    </div>
+    <!-- Background modal popup  -->
+
+    <!-- modal popup panel  -->
+    <div class="panel--container panel__container">
+      <div class="panel--task-create">
+        <div class="panel--title-container">
+          <h3 class="panel--title">Create task</h3>
+          <svg class="panel--exit-image panel__exit-button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9.68 9.68">
+            <path d="M6.25 4.84l3.14-3.13A1 1 0 0 0 8 .29L4.84 3.43 1.71.29A1 1 0 0 0 .29 1.71l3.14 3.13L.29 8a1 1 0 1 0 1.42 1.39l3.13-3.14L8 9.39A1 1 0 0 0 9.39 8z" fill="#979797"/>
+          </svg>
+        </div>
+        <div class="title-input-container">
+          <textarea class="title-input panel__input-title" type="text" placeholder="Enter task title..."></textarea>
+          <textarea class="description-input panel__input-description" type="text" placeholder="Enter task description..."></textarea>
+        </div>
+        <div class="panel--button-container">
+          <div class="button--confirm panel__confirm-button">
+            <h3>Confirm</h3>
+          </div>
+          <div class="button--cancel panel__cancel-button">
+            <h3>Cancel</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal popup panel  -->
+
 
     <!-- Navigation bar  -->
     <div class="nav-bar">
@@ -38,10 +68,13 @@
 
     <!-- Tasks  -->
     <div class="task-body">
-      <div class="task-count-container">
+      <div class="task-count-container disabled">
         <h3 id="task__count-title" class="task-title">Current tasks to complete</h3>
-        <div id="task__counter-number" class="task-count-number">6</div>
+        <div id="task__counter-number" class="task-count-number">0</div>
       </div>
+
+      <div class="task-no-task disabled">
+        <h3>Create a task to get started.</h3></div>
 
       <!-- repeatable task item -->
       <div class="task-item-container">
@@ -58,6 +91,16 @@
             <p>It's a dream, Morty! We're in your dog's dream. The night the dogs captured us, after you cried and crapped your pants, we-we all went to sleep. Then I used my dream inceptors to put the two of us inside Snuffles' dream.</p>
           </div>
           <div class="task-buttons">
+
+            <div class="task-button-container date-completed task__date-completed disabled">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.99 22.99">
+                <g class="date-completed-image" fill="#484848">
+                  <path d="M17.63 7.5h-1.49v-1a.5.5 0 0 0-.5-.5H14a.5.5 0 0 0-.5.5v1H9.45v-1A.5.5 0 0 0 9 6H7.35a.5.5 0 0 0-.5.5v1H5.36a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h12.27a.5.5 0 0 0 .5-.5V8a.5.5 0 0 0-.5-.5zM14.54 7h.6v2h-.6zM7.85 7h.6v2h-.6zm9.28 9.48H5.86v-8h1v1a.5.5 0 0 0 .5.5H9a.5.5 0 0 0 .5-.5v-1h4.09v1a.5.5 0 0 0 .5.5h1.6a.5.5 0 0 0 .5-.5v-1h1z"/>
+                  <path d="M13.55 11.25l-2.86 2.85-1.25-1.25a.5.5 0 0 0-.71.71l1.61 1.6a.5.5 0 0 0 .35.15.51.51 0 0 0 .36-.15L14.26 12a.5.5 0 0 0 0-.7.5.5 0 0 0-.71-.05z"/>
+                </g>
+              </svg>
+            </div>
+
             <div class="task-button-container date-created task__created-date">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.99 22.99">
                 <g class="date-created-image" fill="#484848">
@@ -66,6 +109,7 @@
                 </g>
               </svg>
             </div>
+
             <div class="task-button-container edit task__edit-button">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.99 22.99">
                 <path class="edit-image" d="M18.84 6.48L17.07 4.7a.51.51 0 0 0-.71 0l-2 2a.46.46 0 0 0-.14.41.48.48 0 0 0-.41.13l-8 8a.49.49 0 0 0-.13.47h-.1a.51.51 0 0 0-.5.5v1.67a.5.5 0 0 0 .5.5h1.68a.5.5 0 0 0 .5-.5.58.58 0 0 0 .19 0 .47.47 0 0 0 .35-.15l8-8a.48.48 0 0 0 .13-.41h.06a.47.47 0 0 0 .35-.15l2-2a.5.5 0 0 0 0-.69zM6.09 16.23l1.15 1.14H6.09zm1.91.44L6.88 15.6l7.28-7.29 1.08 1.08zm8.54-8.54l-1.12-1.07 1.29-1.29 1.07 1.07z" fill="#484848"/>

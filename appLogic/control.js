@@ -6,14 +6,10 @@ const dbFunc = require('./function.js');
 // Make sure it is working correctly
 // console.log('This is the control logic');
 
+//************// Main Control Initialisation ************//
 
-//************// Main Control Initialisation //************//
-
-//Control the application using event listeners init
+//Control the application using event listeners initilisation
 setUpEventListeners()
-
-
-//************// Event listeners //************//
 
 //store all active event listeners in a function so that they can be turned on and off
 function setUpEventListeners() {
@@ -26,9 +22,16 @@ function setUpEventListeners() {
     console.log('Task view button');
   })
 
-  document.querySelector(ui.DOMstrings.addTaskButton).addEventListener('click', () => {
-    console.log('Add task button');
-  })
+  //================// Panel Control ================//
+  //Open panel//
+  document.querySelector(ui.DOMstrings.addTaskButton).addEventListener('click', ui.openPanel)
+
+  //Close panel//
+  document.querySelector(ui.DOMstrings.panelCancel).addEventListener('click', ui.closePanel)
+  document.querySelector(ui.DOMstrings.panelExit).addEventListener('click', ui.closePanel)
+
+
+  //================// Search function ================//
 
   document.querySelector(ui.DOMstrings.searchField).addEventListener('click', () => {
     console.log('Search input field');
@@ -58,42 +61,46 @@ function setUpEventListeners() {
     console.log('Task trash');
   })
 
+  document.querySelector(ui.DOMstrings.taskDateComplete).addEventListener('click', () => {
+    console.log('Task Date completed');
+  })
+
+  document.querySelector(ui.DOMstrings.panelTitle).addEventListener('click', () => {
+    console.log('Input title');
+  })
+
+  document.querySelector(ui.DOMstrings.panelDescription).addEventListener('click', () => {
+    console.log('input description');
+  })
+
+  document.querySelector(ui.DOMstrings.panelConfirm).addEventListener('click', () => {
+    console.log('confirm button');
+  })
+
+  //Message logging out if event listeners are active
   console.log('Event Listeners Active');
 
+
+  //================// Add Task ================//
+
+  //================// Delete Task ================//
+
+  //================// Edit Task ================//
+
+  //================// Date Created ================//
+
+  //================// Date deleted ================//
+
+  //================// Active tasks ================//
+
+  //================// Archived tasks ================//
+
+  //================// Complete Task ================//
+
+  //================// Activate Task ================//
+
+  //================// Switch views ================//
+
+  //================// Menu ================//
+
 }
-
-
-//================// Add Task //================//
-
-
-//================// Delete Task //================//
-
-
-//================// Edit Task //================//
-
-
-//================// Date Created //================//
-
-
-//================// Date deleted //================//
-
-
-//================// Active tasks //================//
-
-
-//================// Archived tasks //================//
-
-
-//================// Search function //================//
-
-
-//================// Complete Task //================//
-
-
-//================// Activate Task //================//
-
-
-//================// Switch views //================//
-
-
-//================// Menu //================//
