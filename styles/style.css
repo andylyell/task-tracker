@@ -89,7 +89,7 @@ html {
 }
 
 .panel-move {
-  top: 0px;
+  top: 0;
 }
 
 .button-class, .button--cancel, .button--confirm {
@@ -129,7 +129,7 @@ html {
 
 .input-task-items, .title-input, .description-input {
   width: 100%;
-  padding: 10px 20px 10px 20px;
+  padding: 10px 20px;
   font-family: IBMPlexSans;
   font-size: 14px;
   border: none;
@@ -201,22 +201,25 @@ html {
   padding-top: 3px;
 }
 
-.underline-persist-blue {
+.underline-parent-class, .underline-blue:after, .underline-green:after {
   position: relative;
   text-decoration: none;
 }
 
-.underline-persist-blue:after {
+.underline-parent-class:after, .underline-blue:after, .underline-green:after {
   display: block;
   position: absolute;
   left: 0;
   bottom: -5px;
-  width: 100%;
+  width: 0;
   height: 3px;
-  background-color: #1A51E3;
   content: "";
   -webkit-transition: width 0.4s;
   transition: width 0.4s;
+}
+
+.underline-parent-class:hover:after, .underline-blue:hover:after, .underline-green:hover:after {
+  width: 100%;
 }
 
 .underline-blue {
@@ -225,20 +228,46 @@ html {
 }
 
 .underline-blue:after {
+  background-color: #1A51E3;
+}
+
+.underline-green {
+  position: relative;
+  text-decoration: none;
+}
+
+.underline-green:after {
+  background-color: #00CB24;
+}
+
+.underline-persist-master:after, .underline-persist-blue:after, .underline-persist-green:after {
   display: block;
   position: absolute;
   left: 0;
   bottom: -5px;
-  width: 0;
+  width: 100%;
   height: 3px;
-  background-color: #1A51E3;
   content: "";
   -webkit-transition: width 0.4s;
   transition: width 0.4s;
 }
 
-.underline-blue:hover:after {
-  width: 100%;
+.underline-persist-blue {
+  position: relative;
+  text-decoration: none;
+}
+
+.underline-persist-blue:after {
+  background-color: #1A51E3;
+}
+
+.underline-persist-green {
+  position: relative;
+  text-decoration: none;
+}
+
+.underline-persist-green:after {
+  background-color: #00CB24;
 }
 
 .search-container {
@@ -269,6 +298,10 @@ html {
   width: 18px;
   left: 40px;
   bottom: 20px;
+}
+
+.search-archive:focus {
+  border: 1px solid #00CB24;
 }
 
 .task-body {
@@ -325,8 +358,22 @@ html {
   fill: #fff;
 }
 
+.task-item-tick:hover .task-item-image-re {
+  fill: #fff;
+}
+
+.task-item-tick-reinstate:hover {
+  background-color: #00CB24;
+}
+
 .task-item-image {
   width: 26px;
+  fill: #BBB;
+  height: auto;
+}
+
+.task-item-image-re {
+  width: 22px;
   fill: #BBB;
   height: auto;
 }
@@ -356,6 +403,24 @@ html {
   border: 1px solid #C2C2C2;
   display: inline-block;
   cursor: pointer;
+  margin-right: 3px;
+}
+
+.task-button-date {
+  display: none;
+  margin: 0 8px 0 5px;
+  border: 1px solid #1A51E3;
+  padding: 6px;
+  border-radius: 20px;
+}
+
+.task-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.task-date-text {
+  font-size: 12px;
 }
 
 .date-completed:hover,
@@ -378,6 +443,24 @@ html {
   fill: #fff;
 }
 
+.complete-hover {
+  display: flex;
+  align-items: center;
+}
+
+.complete-hover:hover .task-button-date {
+  display: inline-block;
+}
+
+.create-hover {
+  display: flex;
+  align-items: center;
+}
+
+.create-hover:hover .task-button-date {
+  display: inline-block;
+}
+
 .trash:hover {
   background-color: #E10931;
   border: 1px solid #E10931;
@@ -393,6 +476,19 @@ html {
 }
 
 .archive-green {
+  background-color: #00CB24;
+}
+
+.archive-green:hover {
+  background-color: #027E18;
+}
+
+.buttons__archive-green:hover {
+  border: 1px solid #00CB24;
+  background-color: #00CB24;
+}
+
+.archive-green-back {
   background-color: #00CB24;
 }
 

@@ -1,6 +1,3 @@
-//Make sure it is exporting correctly
-// console.log('This is the user interface logic');
-
 //Const of DOMstrings available
 const DOMstrings = {
   archiveViewButton: '#archive__view-button',
@@ -9,7 +6,7 @@ const DOMstrings = {
   searchField: '#search__input-field',
   taskCountTitle: '#task__count-title',
   taskCountNumber: '#task__counter-number',
-  taskComplete: '#task__complete-button',
+  taskControl: '#task__control-button',
   taskCreated: '.task__created-date',
   taskEdit: '.task__edit-button',
   taskTrash: '.task__trash-button',
@@ -27,8 +24,15 @@ const DOMstrings = {
 exports.DOMstrings = DOMstrings;
 
 //Variables available on the module scope for functions
-let back = document.querySelector(DOMstrings.backBlur);
-let panel = document.querySelector(DOMstrings.panelContainer);
+const back = document.querySelector(DOMstrings.backBlur);
+const panel = document.querySelector(DOMstrings.panelContainer);
+const addTaskButton = document.querySelector(DOMstrings.addTaskButton);
+const searchField = document.querySelector(DOMstrings.searchField);
+const taskViewButton = document.querySelector(DOMstrings.taskViewButton);
+const archiveViewButton = document.querySelector(DOMstrings.archiveViewButton);
+const taskCountNumber = document.querySelector(DOMstrings.taskCountNumber);
+const panelTitle = document.querySelector(DOMstrings.panelTitle);
+const panelDesc = document.querySelector(DOMstrings.panelDescription);
 
 //function controlling the panel opening
 exports.openPanel = () => {
@@ -44,33 +48,89 @@ exports.closePanel = () => {
     panel.style.top = '-1300px';
   }
 
+//function to clear the input description and input title on cancel or x
+exports.clearAll = () => {
+    panelTitle.value = ""
+    panelDesc.value = ""
+  }
 
-// //Function to show and hide the copied button
-// function showCopied() {
-//   clearTimeout(copiedSign);
-//   copiedMessage.style.visibility = "visible";
-//   copiedMessage.style.opacity = "1";
-//   copiedSign = setTimeout(function() {
-//     copiedMessage.style.visibility = "hidden";
-//     copiedMessage.style.opacity = "0";
-//   }, 1500);
-// }
-//
-// //Functions to show/hide more information
-// function showInfo() {
-//   background.style.visibility = "visible";
-//   background.style.opacity = "0.3";
-//   modal.style.top = '0';
-// }
-//
-// function hideInfo() {
-//   if (w >= 500) {
-//     modal.style.top = '-600px';
-//   } else {
-//     modal.style.top = '-800px';
-//   }
-//
-//   background.style.opacity = "0";
-//   background.style.visibility = "hidden";
-//
-// }
+//function to update the number in the task counter view
+exports.updateTaskCount = (number) => {
+  taskCountNumber.innerHTML = number;
+}
+
+//function to show error if trying to submit a task without a title
+exports.titleError = () => {
+  //bring the title input to focus
+
+  //put red 1px border around the input title
+
+  //goes away as soon as the user writes something in the title
+}
+
+//function to change color of UI when pressing archive
+exports.archiveView = () => {
+  //change add task button to have a green background
+  addTaskButton.classList.add('archive-green');
+
+  //change button backgrounds on hover to green and borders to green
+  // taskCreated.classList.add('buttons__archive-green');
+  // taskEdit.classList.add('buttons__archive-green');
+
+  //change search focus colour to green
+  searchField.classList.add('search-archive');
+
+  //remove underline from task
+  taskViewButton.classList.remove('underline-persist-blue');
+  taskViewButton.classList.add('underline-blue');
+
+  //Add underline to archive
+  archiveViewButton.classList.add('underline-persist-green');
+
+  //Turn underline green
+  taskViewButton.classList.add('underline-green');
+  taskViewButton.classList.remove('underline-blue');
+
+  //change hover background of tick/reinstate to green
+  // taskControl.classList.add('task-item-tick-reinstate');
+
+  //Task Counter turned to green
+  taskCountNumber.classList.add('archive-green-back');
+
+  //change tick icon to refresh icon
+
+  //Make date completed visibile in task panels
+
+  //Change colour of title of tasks to green
+}
+
+//function to change the colour of UI when pressing task
+exports.taskView = () => {
+  //change add task button to have a blue background
+  addTaskButton.classList.remove('archive-green');
+
+  //change button backgrounds on hover to green and borders to green
+  // taskCreated.classList.remove('buttons__archive-green');
+  // taskEdit.classList.remove('buttons__archive-green');
+
+  //change search focus colour to blue
+  searchField.classList.remove('search-archive');
+
+  //remove underline from archive
+  archiveViewButton.classList.remove('underline-persist-green');
+
+  //Add underline to task
+  taskViewButton.classList.add('underline-persist-blue');
+
+  //change hover background of tick/reinstate to green
+  // taskControl.classList.remove('task-item-tick-reinstate');
+
+  //Task Counter turned to blue
+    taskCountNumber.classList.remove('archive-green-back');
+
+  //change tick icon to refresh icon
+
+  //Make date completed visibile in task panels
+
+  //Change colour of title of tasks to green
+}

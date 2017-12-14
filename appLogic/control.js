@@ -1,10 +1,9 @@
 //modules
 const ui = require('./ui.js');
 const menu = require('./menu.js');
-const dbFunc = require('./function.js');
+const data = require('./data.js');
 
-// Make sure it is working correctly
-// console.log('This is the control logic');
+
 
 //************// Main Control Initialisation ************//
 
@@ -14,13 +13,22 @@ setUpEventListeners()
 //store all active event listeners in a function so that they can be turned on and off
 function setUpEventListeners() {
 
+  //================// Active tasks ================//
+
+  //================// Archived tasks ================//
   document.querySelector(ui.DOMstrings.archiveViewButton).addEventListener('click', () => {
-    console.log('archive view button');
+    ui.archiveView();
   })
 
+  //================// Active tasks ================//
   document.querySelector(ui.DOMstrings.taskViewButton).addEventListener('click', () => {
-    console.log('Task view button');
+    ui.taskView();
   })
+  data.sortTasks((err) => {
+      let count = data.getCounter();
+      ui.updateTaskCount(count);
+  });
+
 
   //================// Panel Control ================//
   //Open panel//
@@ -29,6 +37,10 @@ function setUpEventListeners() {
   //Close panel//
   document.querySelector(ui.DOMstrings.panelCancel).addEventListener('click', ui.closePanel)
   document.querySelector(ui.DOMstrings.panelExit).addEventListener('click', ui.closePanel)
+
+  //Clear Panel//
+  document.querySelector(ui.DOMstrings.panelExit).addEventListener('click', ui.clearAll)
+  document.querySelector(ui.DOMstrings.panelCancel).addEventListener('click', ui.clearAll)
 
 
   //================// Search function ================//
@@ -45,43 +57,28 @@ function setUpEventListeners() {
     console.log('Task Counter number');
   })
 
-  document.querySelector(ui.DOMstrings.taskComplete).addEventListener('click', () => {
-    console.log('Task Complete button');
-  })
+    //================// Add Task ================//
+    document.querySelector(ui.DOMstrings.panelConfirm).addEventListener('click', () => {
 
-  document.querySelector(ui.DOMstrings.taskCreated).addEventListener('click', () => {
-    console.log('Task created');
-  })
+    data.addTask();
 
-  document.querySelector(ui.DOMstrings.taskEdit).addEventListener('click', () => {
-    console.log('Task Edit');
-  })
+    })
 
-  document.querySelector(ui.DOMstrings.taskTrash).addEventListener('click', () => {
-    console.log('Task trash');
-  })
+  //if cancel button is pressed then it needs to clear the title and description fields
 
-  document.querySelector(ui.DOMstrings.taskDateComplete).addEventListener('click', () => {
-    console.log('Task Date completed');
-  })
-
-  document.querySelector(ui.DOMstrings.panelTitle).addEventListener('click', () => {
-    console.log('Input title');
-  })
-
-  document.querySelector(ui.DOMstrings.panelDescription).addEventListener('click', () => {
-    console.log('input description');
-  })
-
-  document.querySelector(ui.DOMstrings.panelConfirm).addEventListener('click', () => {
-    console.log('confirm button');
-  })
+  // document.querySelector(ui.DOMstrings.panelTitle).addEventListener('click', () => {
+  //   console.log('Input title');
+  // })
+  //
+  // document.querySelector(ui.DOMstrings.panelDescription).addEventListener('click', () => {
+  //   console.log('input description');
+  // })
 
   //Message logging out if event listeners are active
-  console.log('Event Listeners Active');
+  // console.log('Event Listeners Active');
 
 
-  //================// Add Task ================//
+
 
   //================// Delete Task ================//
 
@@ -90,10 +87,6 @@ function setUpEventListeners() {
   //================// Date Created ================//
 
   //================// Date deleted ================//
-
-  //================// Active tasks ================//
-
-  //================// Archived tasks ================//
 
   //================// Complete Task ================//
 
@@ -104,3 +97,25 @@ function setUpEventListeners() {
   //================// Menu ================//
 
 }
+
+
+
+// document.querySelector(ui.DOMstrings.taskControl).addEventListener('click', () => {
+//   console.log('Task Control button');
+// })
+
+// document.querySelector(ui.DOMstrings.taskCreated).addEventListener('click', () => {
+//   console.log('Task created');
+// })
+
+// document.querySelector(ui.DOMstrings.taskEdit).addEventListener('click', () => {
+//   console.log('Task Edit');
+// })
+
+// document.querySelector(ui.DOMstrings.taskTrash).addEventListener('click', () => {
+//   console.log('Task trash');
+// })
+
+// document.querySelector(ui.DOMstrings.taskDateComplete).addEventListener('click', () => {
+//   console.log('Task Date completed');
+// })
