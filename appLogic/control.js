@@ -24,10 +24,26 @@ function setUpEventListeners() {
   document.querySelector(ui.DOMstrings.taskViewButton).addEventListener('click', () => {
     ui.taskView();
   })
-  data.sortTasks((err) => {
-      let count = data.getCounter();
-      ui.updateTaskCount(count);
+
+
+  data.retrieveTasks();
+
+  const promise = new Promise((fufill, reject) => {
+    var n = data.getTaskCount();
+    if(n !== 0){
+      fufill(n);
+    } else{
+      reject(n);
+    }
   });
+
+  promise.then((number) => {
+    console.log(number);
+  }, (number) => {
+    console.log(`failed with a number of ${number}`);
+  })
+  // console.log(data.getTaskCount());
+
 
 
   //================// Panel Control ================//
@@ -43,6 +59,12 @@ function setUpEventListeners() {
   document.querySelector(ui.DOMstrings.panelCancel).addEventListener('click', ui.clearAll)
 
 
+  //================// Add Task ================//
+  document.querySelector(ui.DOMstrings.panelConfirm).addEventListener('click', () => {
+    data.addTask();
+  })
+
+
   //================// Search function ================//
 
   document.querySelector(ui.DOMstrings.searchField).addEventListener('click', () => {
@@ -56,15 +78,6 @@ function setUpEventListeners() {
   document.querySelector(ui.DOMstrings.taskCountNumber).addEventListener('click', () => {
     console.log('Task Counter number');
   })
-
-    //================// Add Task ================//
-    document.querySelector(ui.DOMstrings.panelConfirm).addEventListener('click', () => {
-
-    data.addTask();
-
-    })
-
-  //if cancel button is pressed then it needs to clear the title and description fields
 
   // document.querySelector(ui.DOMstrings.panelTitle).addEventListener('click', () => {
   //   console.log('Input title');

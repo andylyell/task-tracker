@@ -26,32 +26,29 @@ exports.addTask = () => {
       console.log(`Inserted task: ${doc.title} with an id of ${doc._id}`);
     })
   }
-}
+} 
 
 let counter = 0;
 
-exports.getCounter = () => {
+exports.getTaskCount = () => {
   return counter;
 }
 
 //Function to show and sort by title
-exports.sortTasks = (cb) => {
-  db.find({}).sort({date_created: -1}).exec((err, doc) => {
+exports.retrieveTasks = () => {
 
-    //create a counter variable
-    counter = 0;
+  db.find({}).sort({date_created: -1}).exec((err, doc) => {
 
     //for each entry in the database do something
     doc.forEach((d) => {
       console.log(`Task title = ${d.title}. Task description = ${d.description}. Task created = ${d.date_created} Task Complete status = ${d.status}.`);
       counter++;
     })
-    // console.log(counter);
-    if(cb){
-      cb(err);
-    }
+    console.log(counter);
   });
 }
+
+//how would I make this a product
 
 // console.log(`${counter} from data.js`)
 
