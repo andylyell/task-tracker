@@ -28,24 +28,49 @@ exports.addTask = () => {
   }
 } 
 
-let counter = 0;
+//ACESS TO THE DATA//
+let openTasks;
 
-exports.getTaskCount = () => {
-  return counter;
+exports.getOpenTasks = () => {
+  // return counter;
+  return openTasks;
+}
+
+exports.getTasks = () => {
+
 }
 
 //Function to show and sort by title
-exports.retrieveTasks = () => {
+exports.retrieveActiveTasks = () => {
 
-  db.find({}).sort({date_created: -1}).exec((err, doc) => {
-
-    //for each entry in the database do something
-    doc.forEach((d) => {
-      console.log(`Task title = ${d.title}. Task description = ${d.description}. Task created = ${d.date_created} Task Complete status = ${d.status}.`);
-      counter++;
-    })
-    console.log(counter);
+  return new Promise((resolve, reject) => {
+    db.find({status:false}).sort({date_created: 1}).exec((err, doc) => {
+      if (err) {
+        return reject();
+      } else {
+        openTasks = doc;
+      }
+      // doc.forEach((d) => {
+      //   // console.log(`Task title = ${d.title}. Task description = ${d.description}. Task created = ${d.date_created} Task Complete status = ${d.status}.`);
+      resolve();
+    });
   });
+}
+
+exports.deleteTask = (e) => {
+  const tasksToDelete = document.querySelectorAll(ui.DOMstrings.taskTrash);
+  for(i=0; i < tasksToDelete.length; i++){
+    let task = tasksToDelete[i];
+    task.addEventListener('click', () => {
+      db.remove({ _id:task.dataset.taskid }, {}, (err, numRemoved) => {
+        if(err){
+          console.log(err)
+        } else {
+          console.log(`deleted ${task.dataset.taskid}`);
+        }
+      })
+    })
+  }
 }
 
 //how would I make this a product

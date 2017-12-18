@@ -18,6 +18,8 @@ const DOMstrings = {
   panelConfirm: '.panel__confirm-button',
   panelContainer: '.panel__container',
   backBlur: '.blur',
+  activeTaskContainer: '#task__active-container',
+  taskBody: '.task-item-container'
 }
 
 //makes the DOMstrings available to other modules by exporting it
@@ -45,7 +47,7 @@ exports.openPanel = () => {
 exports.closePanel = () => {
     back.style.opacity = '0';
     back.style.visibility = 'hidden';
-    panel.style.top = '-1300px';
+    panel.style.top = '-1600px';
   }
 
 //function to clear the input description and input title on cancel or x
@@ -109,7 +111,7 @@ exports.taskView = () => {
   //change add task button to have a blue background
   addTaskButton.classList.remove('archive-green');
 
-  //change button backgrounds on hover to green and borders to green
+  //change button backgrounds on hover to green and borders sto green
   // taskCreated.classList.remove('buttons__archive-green');
   // taskEdit.classList.remove('buttons__archive-green');
 
@@ -133,4 +135,23 @@ exports.taskView = () => {
   //Make date completed visibile in task panels
 
   //Change colour of title of tasks to green
+}
+
+////////Search for Banners////////
+
+exports.searchFunction = () => {
+  const taskItemTitle = document.querySelectorAll(DOMstrings.taskBody);
+  // console.log(taskItemTitle);
+  let filter = searchField.value.toUpperCase();
+  // console.log(filter);
+  for (let index = 0; index < taskItemTitle.length; index++) {
+    let item = taskItemTitle[index];
+    if (item.dataset.label.toUpperCase().indexOf(filter) > -1) {
+      item.classList.remove('disabled');
+    } else if (searchField.value === "") {
+      item.classList.remove('disabled');
+    } else {
+      item.classList.add('disabled');
+    }
+  }
 }
