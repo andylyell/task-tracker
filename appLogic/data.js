@@ -35,11 +35,7 @@ exports.getOpenTasks = () => {
   return openTasks;
 }
 
-exports.getArchivedTasks = () => {
-
-}
-
-//Function to show and sort by title
+//Function to show and sort active tasks by date
 exports.retrieveActiveTasks = () => {
 
   return new Promise((resolve, reject) => {
@@ -49,8 +45,6 @@ exports.retrieveActiveTasks = () => {
       } else {
         openTasks = doc;
       }
-      // doc.forEach((d) => {
-      //   // console.log(`Task title = ${d.title}. Task description = ${d.description}. Task created = ${d.date_created} Task Complete status = ${d.status}.`);
       resolve();
     });
   });
@@ -71,6 +65,26 @@ exports.deleteTask = (e) => {
       })
     })
   }
+}
+
+let archivedTasks;
+
+exports.getArchivedTasks = () => {
+  return archivedTasks;
+}
+
+//Function to show archived tasks
+exports.retrieveArchiveTasks = () => {
+  return new Promise((resolve, reject) => {
+    db.find({status:true}).sort({date_completed: -1}).exec((err, doc) => {
+      if (err) {
+        return reject();
+      } else {
+        archivedTasks = doc;
+      }
+      resolve();
+    });
+  });
 }
 
 //how would I make this a product

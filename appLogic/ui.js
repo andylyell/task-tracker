@@ -19,7 +19,9 @@ const DOMstrings = {
   panelContainer: '.panel__container',
   backBlur: '.blur',
   activeTaskContainer: '#task__active-container',
-  taskBody: '.task-item-container'
+  taskBody: '.task-item-container',
+  archiveContainer: '#task__archive-container',
+  archiveCount: '#archive__counter-number'
 }
 
 //makes the DOMstrings available to other modules by exporting it
