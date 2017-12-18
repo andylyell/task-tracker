@@ -375,6 +375,29 @@ $dgreen: #027E18;
       // align-items: center;
     }
 
+    &-re {
+      display: flex;
+      align-items: center;
+      float: left;
+      height: auto;
+      padding: 0 17px;
+      transition: 0.2s;
+      cursor: pointer;
+      border-right: 1px solid #E9E9E9;
+
+      &:hover {
+        background-color: $green;
+
+        & .task-item-image {
+          fill: #fff;
+        }
+
+        & .task-item-image-re {
+          fill: #fff;
+        }
+      }
+    }
+
     &-tick {
       display: flex;
       align-items: center;
@@ -395,12 +418,6 @@ $dgreen: #027E18;
         & .task-item-image-re {
           fill: #fff;
         }
-      }
-    }
-
-    &-tick-reinstate {
-      &:hover {
-        background-color: $green;
       }
     }
 
@@ -513,6 +530,14 @@ $dgreen: #027E18;
   width: 18px;
 }
 
+.title-archive{
+  color: $green;
+}
+
+.task-date-green{
+  border: 1px solid $green;
+}
+
 .archive-green {
   background-color: $green;
 
@@ -521,10 +546,19 @@ $dgreen: #027E18;
   }
 }
 
-.buttons__archive-green {
+.buttons-archive-green {
   &:hover {
     border: 1px solid $green;
     background-color: $green;
+  }
+}
+
+.archive-submit {
+  background-color: $green;
+  border: 1px solid $green;
+  &:hover{
+    background-color: $dgreen;
+    border: 1px solid $dgreen;
   }
 }
 

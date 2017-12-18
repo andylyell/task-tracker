@@ -339,6 +339,29 @@ html {
   margin-bottom: 5px;
 }
 
+.task-item-re {
+  display: flex;
+  align-items: center;
+  float: left;
+  height: auto;
+  padding: 0 17px;
+  transition: 0.2s;
+  cursor: pointer;
+  border-right: 1px solid #E9E9E9;
+}
+
+.task-item-re:hover {
+  background-color: #00CB24;
+}
+
+.task-item-re:hover .task-item-image {
+  fill: #fff;
+}
+
+.task-item-re:hover .task-item-image-re {
+  fill: #fff;
+}
+
 .task-item-tick {
   display: flex;
   align-items: center;
@@ -360,10 +383,6 @@ html {
 
 .task-item-tick:hover .task-item-image-re {
   fill: #fff;
-}
-
-.task-item-tick-reinstate:hover {
-  background-color: #00CB24;
 }
 
 .task-item-image {
@@ -475,6 +494,14 @@ html {
   width: 18px;
 }
 
+.title-archive {
+  color: #00CB24;
+}
+
+.task-date-green {
+  border: 1px solid #00CB24;
+}
+
 .archive-green {
   background-color: #00CB24;
 }
@@ -483,9 +510,19 @@ html {
   background-color: #027E18;
 }
 
-.buttons__archive-green:hover {
+.buttons-archive-green:hover {
   border: 1px solid #00CB24;
   background-color: #00CB24;
+}
+
+.archive-submit {
+  background-color: #00CB24;
+  border: 1px solid #00CB24;
+}
+
+.archive-submit:hover {
+  background-color: #027E18;
+  border: 1px solid #027E18;
 }
 
 .archive-green-back {

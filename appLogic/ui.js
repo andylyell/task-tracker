@@ -35,33 +35,34 @@ const archiveViewButton = document.querySelector(DOMstrings.archiveViewButton);
 const taskCountNumber = document.querySelector(DOMstrings.taskCountNumber);
 const panelTitle = document.querySelector(DOMstrings.panelTitle);
 const panelDesc = document.querySelector(DOMstrings.panelDescription);
+const panelConfirm = document.querySelector(DOMstrings.panelConfirm);
 
-//function controlling the panel opening
+//**********//function controlling the panel opening
 exports.openPanel = () => {
     back.style.opacity = '0.5';
     back.style.visibility = 'visible';
     panel.style.top = '0px';
   }
 
-//function controlling the panel closing
+//**********//function controlling the panel closing
 exports.closePanel = () => {
     back.style.opacity = '0';
     back.style.visibility = 'hidden';
     panel.style.top = '-1600px';
   }
 
-//function to clear the input description and input title on cancel or x
+//**********//function to clear the input description and input title on cancel or x
 exports.clearAll = () => {
     panelTitle.value = ""
     panelDesc.value = ""
   }
 
-//function to update the number in the task counter view
+//**********//function to update the number in the task counter view
 exports.updateTaskCount = (number) => {
   taskCountNumber.innerHTML = number;
 }
 
-//function to show error if trying to submit a task without a title
+//**********//function to show error if trying to submit a task without a title
 exports.titleError = () => {
   //bring the title input to focus
 
@@ -70,14 +71,11 @@ exports.titleError = () => {
   //goes away as soon as the user writes something in the title
 }
 
-//function to change color of UI when pressing archive
+//**********//function to change color of UI when pressing archive
 exports.archiveView = () => {
   //change add task button to have a green background
   addTaskButton.classList.add('archive-green');
 
-  //change button backgrounds on hover to green and borders to green
-  // taskCreated.classList.add('buttons__archive-green');
-  // taskEdit.classList.add('buttons__archive-green');
 
   //change search focus colour to green
   searchField.classList.add('search-archive');
@@ -96,17 +94,16 @@ exports.archiveView = () => {
   //change hover background of tick/reinstate to green
   // taskControl.classList.add('task-item-tick-reinstate');
 
-  //Task Counter turned to green
-  taskCountNumber.classList.add('archive-green-back');
+  //Change colour add task panel title focus to green
+  panelTitle.classList.add('search-archive');
+  //Change colour add task panel description focus to green
+  panelDesc.classList.add('search-archive');
+  //Change colour add task panel confirm focus to green
+  panelConfirm.classList.add('archive-submit')
 
-  //change tick icon to refresh icon
-
-  //Make date completed visibile in task panels
-
-  //Change colour of title of tasks to green
 }
 
-//function to change the colour of UI when pressing task
+//**********//function to change the colour of UI when pressing task
 exports.taskView = () => {
   //change add task button to have a blue background
   addTaskButton.classList.remove('archive-green');
@@ -127,18 +124,16 @@ exports.taskView = () => {
   //change hover background of tick/reinstate to green
   // taskControl.classList.remove('task-item-tick-reinstate');
 
-  //Task Counter turned to blue
-    taskCountNumber.classList.remove('archive-green-back');
-
-  //change tick icon to refresh icon
-
-  //Make date completed visibile in task panels
-
-  //Change colour of title of tasks to green
+    //Change colour add task panel title focus to blue
+    panelTitle.classList.remove('search-archive');
+    //Change colour add task panel description focus to blue
+    panelDesc.classList.remove('search-archive');
+    //Change colour add task panel confirm focus to blue
+    panelConfirm.classList.remove('archive-submit')
 }
 
-////////Search for Banners////////
 
+//**********//Function to search on task titles
 exports.searchFunction = () => {
   const taskItemTitle = document.querySelectorAll(DOMstrings.taskBody);
   // console.log(taskItemTitle);

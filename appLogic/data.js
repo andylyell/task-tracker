@@ -32,11 +32,10 @@ exports.addTask = () => {
 let openTasks;
 
 exports.getOpenTasks = () => {
-  // return counter;
   return openTasks;
 }
 
-exports.getTasks = () => {
+exports.getArchivedTasks = () => {
 
 }
 
@@ -57,6 +56,7 @@ exports.retrieveActiveTasks = () => {
   });
 }
 
+//Function to delete tasks from database
 exports.deleteTask = (e) => {
   const tasksToDelete = document.querySelectorAll(ui.DOMstrings.taskTrash);
   for(i=0; i < tasksToDelete.length; i++){

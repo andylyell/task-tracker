@@ -41,16 +41,6 @@ function setUpEventListeners() {
     data.addTask();
   })
 
-
-
-  document.querySelector(ui.DOMstrings.taskCountTitle).addEventListener('click', () => {
-    console.log('Task Counter Title');
-  })
-
-  document.querySelector(ui.DOMstrings.taskCountNumber).addEventListener('click', () => {
-    console.log('Task Counter number');
-  })
-
   //ACESS TO THE DATA//
   let doc;
   let taskContainer = document.querySelector(ui.DOMstrings.activeTaskContainer);
@@ -64,10 +54,6 @@ function setUpEventListeners() {
           <div id="task__control-button" class="task-item-tick">
             <svg class="task-item-image" viewBox="0 0 14.16 10.11">
             <path d="M5.05 10.1a1 1 0 0 1-.7-.29L.29 5.76a1 1 0 0 1 0-1.41 1 1 0 0 1 1.42 0l3.34 3.34 7.4-7.4a1 1 0 1 1 1.42 1.42l-8.11 8.1a1 1 0 0 1-.71.29z"/>
-          </svg>
-            <svg class="task-item-image-re disabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.03 14.27">
-            <path d="M12 6A6 6 0 1 0 0 6a1 1 0 0 0 2 0 4 4 0 1 1 4.81 4l.45-.45a1 1 0 0 0-1.42-1.47l-2.23 2.24a1 1 0 0 0 0 1.41L5.84 14a1 1 0 0 0 1.41-1.41L6.69 12A6 6 0 0 0 12 6z"/>
-          </svg>
           </div>
           <div class="task-item-body">
             <div class="task-item-title">
