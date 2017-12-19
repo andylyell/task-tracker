@@ -53,6 +53,7 @@ exports.retrieveActiveTasks = () => {
 //Function to delete tasks from database
 exports.deleteTask = (e) => {
   const tasksToDelete = document.querySelectorAll(ui.DOMstrings.taskTrash);
+  console.log(tasksToDelete);
   for(i=0; i < tasksToDelete.length; i++){
     let task = tasksToDelete[i];
     task.addEventListener('click', () => {
@@ -62,6 +63,7 @@ exports.deleteTask = (e) => {
         } else {
           console.log(`deleted ${task.dataset.taskid}`);
         }
+        e.preventDefault();
       })
     })
   }
@@ -85,6 +87,18 @@ exports.retrieveArchiveTasks = () => {
       resolve();
     });
   });
+}
+
+//Function to edit tasks
+exports.editTasks = () => {
+  console.log('stuff');
+  //open panel up
+
+  // populate title with current title of tasks
+
+  //populate description with current description of task
+
+  //when confirm is clicked update task back to the database
 }
 
 //how would I make this a product

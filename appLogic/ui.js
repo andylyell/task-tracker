@@ -21,7 +21,9 @@ const DOMstrings = {
   activeTaskContainer: '#task__active-container',
   taskBody: '.task-item-container',
   archiveContainer: '#task__archive-container',
-  archiveCount: '#archive__counter-number'
+  archiveCount: '#archive__counter-number',
+  activeTaskBody: '#active-body',
+  archivedTaskBody: '#archive-body'
 }
 
 //makes the DOMstrings available to other modules by exporting it
@@ -38,6 +40,8 @@ const taskCountNumber = document.querySelector(DOMstrings.taskCountNumber);
 const panelTitle = document.querySelector(DOMstrings.panelTitle);
 const panelDesc = document.querySelector(DOMstrings.panelDescription);
 const panelConfirm = document.querySelector(DOMstrings.panelConfirm);
+const activeTaskBody = document.querySelector(DOMstrings.activeTaskBody);
+const archivedTaskBody = document.querySelector(DOMstrings.archivedTaskBody);
 
 //**********//function controlling the panel opening
 exports.openPanel = () => {
@@ -101,7 +105,12 @@ exports.archiveView = () => {
   //Change colour add task panel description focus to green
   panelDesc.classList.add('search-archive');
   //Change colour add task panel confirm focus to green
-  panelConfirm.classList.add('archive-submit')
+  panelConfirm.classList.add('archive-submit');
+
+  //turn off active tasks
+  activeTaskBody.classList.add('disabled');
+  //turn on archived tasks
+  archivedTaskBody.classList.remove('disabled');
 
 }
 
@@ -131,12 +140,17 @@ exports.taskView = () => {
     //Change colour add task panel description focus to blue
     panelDesc.classList.remove('search-archive');
     //Change colour add task panel confirm focus to blue
-    panelConfirm.classList.remove('archive-submit')
+    panelConfirm.classList.remove('archive-submit');
+
+    //turn on active tasks
+    activeTaskBody.classList.remove('disabled');
+    //turn off archived tasks
+    archivedTaskBody.classList.add('disabled');
 }
 
 
 //**********//Function to search on task titles
-exports.searchFunction = () => {
+exports.searchActiveFunction = () => {
   const taskItemTitle = document.querySelectorAll(DOMstrings.taskBody);
   // console.log(taskItemTitle);
   let filter = searchField.value.toUpperCase();
