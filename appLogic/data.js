@@ -53,7 +53,6 @@ exports.retrieveActiveTasks = () => {
 //Function to delete tasks from database
 exports.deleteTask = (e) => {
   const tasksToDelete = document.querySelectorAll(ui.DOMstrings.taskTrash);
-  console.log(tasksToDelete);
   for(i=0; i < tasksToDelete.length; i++){
     let task = tasksToDelete[i];
     task.addEventListener('click', () => {

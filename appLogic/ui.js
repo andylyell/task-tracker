@@ -23,7 +23,10 @@ const DOMstrings = {
   archiveContainer: '#task__archive-container',
   archiveCount: '#archive__counter-number',
   activeTaskBody: '#active-body',
-  archivedTaskBody: '#archive-body'
+  archivedTaskBody: '#archive-body',
+  taskContainer: '#task__container',
+  noTaskTitle: '.task-no-task-title',
+  noTaskContainer: '.task-no-task'
 }
 
 //makes the DOMstrings available to other modules by exporting it
@@ -37,11 +40,14 @@ const searchField = document.querySelector(DOMstrings.searchField);
 const taskViewButton = document.querySelector(DOMstrings.taskViewButton);
 const archiveViewButton = document.querySelector(DOMstrings.archiveViewButton);
 const taskCountNumber = document.querySelector(DOMstrings.taskCountNumber);
+const taskCountTitle = document.querySelector(DOMstrings.taskCountTitle);
 const panelTitle = document.querySelector(DOMstrings.panelTitle);
 const panelDesc = document.querySelector(DOMstrings.panelDescription);
 const panelConfirm = document.querySelector(DOMstrings.panelConfirm);
 const activeTaskBody = document.querySelector(DOMstrings.activeTaskBody);
 const archivedTaskBody = document.querySelector(DOMstrings.archivedTaskBody);
+const noTaskTitle = document.querySelector(DOMstrings.noTaskTitle);
+const noTaskContainer = document.querySelector(DOMstrings.noTaskContainer);
 
 //**********//function controlling the panel opening
 exports.openPanel = () => {
@@ -81,76 +87,54 @@ exports.titleError = () => {
 exports.archiveView = () => {
   //change add task button to have a green background
   addTaskButton.classList.add('archive-green');
-
-
   //change search focus colour to green
   searchField.classList.add('search-archive');
-
   //remove underline from task
   taskViewButton.classList.remove('underline-persist-blue');
   taskViewButton.classList.add('underline-blue');
-
   //Add underline to archive
   archiveViewButton.classList.add('underline-persist-green');
-
   //Turn underline green
   taskViewButton.classList.add('underline-green');
   taskViewButton.classList.remove('underline-blue');
-
-  //change hover background of tick/reinstate to green
-  // taskControl.classList.add('task-item-tick-reinstate');
-
   //Change colour add task panel title focus to green
   panelTitle.classList.add('search-archive');
   //Change colour add task panel description focus to green
   panelDesc.classList.add('search-archive');
   //Change colour add task panel confirm focus to green
   panelConfirm.classList.add('archive-submit');
-
-  //turn off active tasks
-  activeTaskBody.classList.add('disabled');
-  //turn on archived tasks
-  archivedTaskBody.classList.remove('disabled');
-
+  //Change colour of task count to green
+  taskCountNumber.classList.add('archive-green');
+  //Change inner html of task count title
+  taskCountTitle.innerHTML = 'Tasks completed';
 }
 
 //**********//function to change the colour of UI when pressing task
 exports.taskView = () => {
   //change add task button to have a blue background
   addTaskButton.classList.remove('archive-green');
-
-  //change button backgrounds on hover to green and borders sto green
-  // taskCreated.classList.remove('buttons__archive-green');
-  // taskEdit.classList.remove('buttons__archive-green');
-
   //change search focus colour to blue
   searchField.classList.remove('search-archive');
-
   //remove underline from archive
   archiveViewButton.classList.remove('underline-persist-green');
-
   //Add underline to task
   taskViewButton.classList.add('underline-persist-blue');
+  //Change colour add task panel title focus to blue
+  panelTitle.classList.remove('search-archive');
+  //Change colour add task panel description focus to blue
+  panelDesc.classList.remove('search-archive');
+  //Change colour add task panel confirm focus to blue
+  panelConfirm.classList.remove('archive-submit');
+  //Change colour of task count to blue
+  taskCountNumber.classList.remove('archive-green');
+  //Change inner html of task count title
+  taskCountTitle.innerHTML = 'Current tasks to complete';
 
-  //change hover background of tick/reinstate to green
-  // taskControl.classList.remove('task-item-tick-reinstate');
-
-    //Change colour add task panel title focus to blue
-    panelTitle.classList.remove('search-archive');
-    //Change colour add task panel description focus to blue
-    panelDesc.classList.remove('search-archive');
-    //Change colour add task panel confirm focus to blue
-    panelConfirm.classList.remove('archive-submit');
-
-    //turn on active tasks
-    activeTaskBody.classList.remove('disabled');
-    //turn off archived tasks
-    archivedTaskBody.classList.add('disabled');
 }
 
 
 //**********//Function to search on task titles
-exports.searchActiveFunction = () => {
+exports.searchFunction = () => {
   const taskItemTitle = document.querySelectorAll(DOMstrings.taskBody);
   // console.log(taskItemTitle);
   let filter = searchField.value.toUpperCase();
@@ -165,4 +149,16 @@ exports.searchActiveFunction = () => {
       item.classList.add('disabled');
     }
   }
+}
+
+//**********//Function if there are no active tasks available
+exports.noActiveTasks = () => {
+  noTaskTitle.innerHTML = 'Create a task to get going';
+  noTaskContainer.classList.remove('disabled');
+}
+
+//**********//Function if there are no archived tasks available
+exports.noArchivedTasks = () => {
+  noTaskTitle.innerHTML = 'Complete a task';
+  noTaskContainer.classList.remove('disabled');
 }

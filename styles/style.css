@@ -333,6 +333,11 @@ html {
   color: #868686;
 }
 
+.task-no-task-image {
+  width: 100px;
+  margin-top: 40px;
+}
+
 .task-item-container {
   background-color: #F9F7F7;
   display: flex;
