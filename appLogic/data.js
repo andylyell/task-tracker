@@ -10,12 +10,14 @@ exports.addTask = () => {
   const title = document.querySelector(ui.DOMstrings.panelTitle);
   const desc = document.querySelector(ui.DOMstrings.panelDescription);
   const created = new Date().toUTCString();
+  const completed = 'not completed yet';
   let status = false;
 
   let task = {
     title: title.value,
     description: desc.value,
     date_created: created,
+    date_completed: completed,
     status: status
   }
 
@@ -39,7 +41,7 @@ exports.getOpenTasks = () => {
 exports.retrieveActiveTasks = () => {
 
   return new Promise((resolve, reject) => {
-    db.find({status:false}).sort({date_created: 1}).exec((err, doc) => {
+    db.find({status:false}).sort({date_created: -1}).exec((err, doc) => {
       if (err) {
         return reject();
       } else {
@@ -89,59 +91,48 @@ exports.retrieveArchiveTasks = () => {
 }
 
 //Function to edit tasks
-exports.editTasks = () => {
-  console.log('stuff');
-  //open panel up
+exports.editTasks = (id) => {
 
-  // populate title with current title of tasks
+  //Get title and description fields
+  const title = document.querySelector(ui.DOMstrings.editTitle);
+  const description = document.querySelector(ui.DOMstrings.editDesc);
 
-  //populate description with current description of task
-
-  //when confirm is clicked update task back to the database
+  document.querySelector(ui.DOMstrings.editConfirm).addEventListener('click', () => {
+    //when confirm is clicked update task back to the database
+    db.update({ _id:id }, { $set: { title:title.value, description:description.value }}, {multi:true}, (err, numReplaced) => {
+      if(err){
+        console.log(err);
+      } else {
+        // console.log(numReplaced);
+      }
+    })
+  })
 }
 
-//how would I make this a product
+//Function to complete tasks
+exports.completeTask = (id) => {
+  const complete = true;
+  //add in data completed field
+  // console.log(id);
+    const dateComplete = new Date().toUTCString();
+    db.update({_id:id}, { $set: { status:complete, date_completed:dateComplete }}, {}, (err, numReplaced) => {
+      if(err){
+        console.log(err);
+      } else {
+        console.log(numReplaced);
+      }
+    })
+}
 
-// console.log(`${counter} from data.js`)
 
-// getNames();
-//
-//
-// function getNames() {
-//   db.find({}, function(err, doc) {
-//     console.log(doc);
-//     doc.forEach(function(d) {
-//       console.log('Found user:', d.name, 'ID = '  );
-//       console.log('1');
-//     });
-//   });
-// }
-
-// var taskExample = {
-//   title: 'Finish task X',
-//   description: 'This is information about task X',
-//   date_created: ${this will be the javaScript Date() function},
-//   complete: false,
-//   date_completed: this will not be set until complete.
-// }
-
-// db.insert(people, function(err, doc){
-//   console.log('Found user', doc.name);
-// });
-
-// db.find({ name: 'Scott'}, function(err, doc) {
-//   console.log('Found User', doc.name)
-// });
-
-// db.insert(scott, function(err, doc){
-//    console.log('Inserted', doc.name, 'With ID', doc._id);
-//   console.log(doc);
-// });
-
-//whats in the datastore?
-// db.find({}, function(err, doc){
-//     console.log(doc.length);
-//   doc.forEach(function(d){
-//     console.log('Found user:', d.name, 'ID = ', d._id);
-//   });
-// });;
+exports.reinstateTask = (id) => {
+  const reinstate = false;
+  const dateComplete = 'not complete'
+  db.update({_id:id}, { $set: { status:reinstate, date_completed:dateComplete }}, {}, (err, numReplaced) => {
+    if(err){
+      console.log(err);
+    } else {
+      console.log(numReplaced);
+    }
+  })
+}

@@ -26,7 +26,7 @@ function setUpEventListeners() {
         document.querySelector(ui.DOMstrings.taskCountNumber).innerHTML = doc.length;
         doc.forEach((task) => {
           taskContainer.innerHTML += `<div class="task-item-container"  data-label="${task.title}">
-            <div id="task__control-button" class="task-item-tick">
+            <div id="task__control-button" class="task-item-tick" data-taskId="${task._id}">
               <svg class="task-item-image" viewBox="0 0 14.16 10.11">
               <path d="M5.05 10.1a1 1 0 0 1-.7-.29L.29 5.76a1 1 0 0 1 0-1.41 1 1 0 0 1 1.42 0l3.34 3.34 7.4-7.4a1 1 0 1 1 1.42 1.42l-8.11 8.1a1 1 0 0 1-.71.29z"/>
             </div>
@@ -83,22 +83,48 @@ function setUpEventListeners() {
         }
         //================// Delete Task ================//
         data.deleteTask();
+
         //================// Edit Task ================//
         const editTaskButtons = document.querySelectorAll(ui.DOMstrings.taskEdit);
-        // console.log(editTaskButtons);
         for(i=0; i < editTaskButtons.length; i++){
-          let task = editTaskButtons[i];
-          editTaskButtons[i].addEventListener('click', () => {
-            // console.log(task.dataset.taskid);
-            ui.openPanel();
+          const task = editTaskButtons[i];
+          const id = task.dataset.taskid;
+          task.addEventListener('click', () => {
+            // console.log(id);
+            ui.openEditPanel();
+            //get current title
+            const title = task.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.querySelector('.task-item-title h4').innerHTML;
+
+            //get current description
+            const description = task.parentNode.previousSibling.previousSibling.querySelector('.task-item-description p').innerHTML;
+
+            //title of task in title box
+            document.querySelector(ui.DOMstrings.editTitle).innerHTML = `${title}`;
+            //Description of task in description box
+            document.querySelector(ui.DOMstrings.editDesc).innerHTML = `${description}`;
+
+            data.editTasks(id);
           })
         }
+        //================// Edit task Panel Control //================//
+        document.querySelector(ui.DOMstrings.editExit).addEventListener('click', ui.closeEditPanel);
+        document.querySelector(ui.DOMstrings.editCancel).addEventListener('click', ui.closeEditPanel);
 
         //================// Search function ================//
         document.querySelector(ui.DOMstrings.searchField).addEventListener('input', () => {
           ui.searchFunction();
         })
+
         //================// Complete Task ================//
+        const tickButtons = document.querySelectorAll(ui.DOMstrings.taskControl);
+        for (i=0; i < tickButtons.length; i++){
+          const tick = tickButtons[i];
+          const id = tick.dataset.taskid;
+          tick.addEventListener('click', () => {
+            data.completeTask(id);
+          })
+        }
+
       })
   }
   //immeadiately call this function
@@ -113,7 +139,7 @@ function setUpEventListeners() {
       document.querySelector(ui.DOMstrings.taskCountNumber).innerHTML = archiveDoc.length;
       archiveDoc.forEach((task) => {
         taskContainer.innerHTML += `<div class="task-item-container" data-label="${task.title}">
-          <div id="task__control-button" class="task-item-re">
+          <div id="task__re-control-button" class="task-item-re" data-taskId="${task._id}">
             <svg class="task-item-image-re" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.03 14.27">
             <path d="M12 6A6 6 0 1 0 0 6a1 1 0 0 0 2 0 4 4 0 1 1 4.81 4l.45-.45a1 1 0 0 0-1.42-1.47l-2.23 2.24a1 1 0 0 0 0 1.41L5.84 14a1 1 0 0 0 1.41-1.41L6.69 12A6 6 0 0 0 12 6z"/>
           </svg>
@@ -185,6 +211,15 @@ function setUpEventListeners() {
       document.querySelector(ui.DOMstrings.searchField).addEventListener('input', () => {
         ui.searchFunction();
       });
+      //================// reinstate function //================//
+      const reButtons = document.querySelectorAll(ui.DOMstrings.reinstateButton);
+      for (i=0; i < reButtons.length; i++){
+        const re = reButtons[i];
+        const id = re.dataset.taskid;
+        re.addEventListener('click', () => {
+          data.reinstateTask(id);
+        })
+      }
 
     });
   }
@@ -201,7 +236,7 @@ function setUpEventListeners() {
     getActiveTasks();
   })
 
-  //================// Panel Control ================//
+  //================// Add task Panel Control //================//
   //Open panel//
   document.querySelector(ui.DOMstrings.addTaskButton).addEventListener('click', ui.openPanel)
 
@@ -213,16 +248,15 @@ function setUpEventListeners() {
   document.querySelector(ui.DOMstrings.panelExit).addEventListener('click', ui.clearAll)
   document.querySelector(ui.DOMstrings.panelCancel).addEventListener('click', ui.clearAll)
 
-
-  //================// Add Task ================//
+  //================// Add Task //================//
   document.querySelector(ui.DOMstrings.panelConfirm).addEventListener('click', () => {
     data.addTask();
   })
 
 
   //================// Menu ================//
-  let archiveDoc;
-  let archiveContainer = document.querySelector(ui.DOMstrings.archiveContainer);
+  // let archiveDoc;
+  // let archiveContainer = document.querySelector(ui.DOMstrings.archiveContainer);
   // console.log(archiveContainer);
 
 

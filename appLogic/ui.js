@@ -26,7 +26,14 @@ const DOMstrings = {
   archivedTaskBody: '#archive-body',
   taskContainer: '#task__container',
   noTaskTitle: '.task-no-task-title',
-  noTaskContainer: '.task-no-task'
+  noTaskContainer: '.task-no-task',
+  editPanel: '.panel__edit-container',
+  editExit: '.panel__edit-exit-button',
+  editCancel: '.panel__edit-cancel-button',
+  editTitle: '.panel__edit-input-title',
+  editDesc: '.panel__edit-input-description',
+  editConfirm: '.panel__edit-confirm-button',
+  reinstateButton: '.task-item-re'
 }
 
 //makes the DOMstrings available to other modules by exporting it
@@ -48,20 +55,35 @@ const activeTaskBody = document.querySelector(DOMstrings.activeTaskBody);
 const archivedTaskBody = document.querySelector(DOMstrings.archivedTaskBody);
 const noTaskTitle = document.querySelector(DOMstrings.noTaskTitle);
 const noTaskContainer = document.querySelector(DOMstrings.noTaskContainer);
+const editPanel = document.querySelector(DOMstrings.editPanel);
 
-//**********//function controlling the panel opening
+//**********//function controlling the add panel opening
 exports.openPanel = () => {
     back.style.opacity = '0.5';
     back.style.visibility = 'visible';
     panel.style.top = '0px';
   }
 
-//**********//function controlling the panel closing
+//**********//function controlling the add panel closing
 exports.closePanel = () => {
     back.style.opacity = '0';
     back.style.visibility = 'hidden';
     panel.style.top = '-1600px';
   }
+
+//**********//function controlling the edit panel opening
+exports.openEditPanel = () => {
+  back.style.opacity = '0.5';
+  back.style.visibility = 'visible';
+  editPanel.style.top = '0px';
+}
+
+//**********//function controlling the edit panel closing
+exports.closeEditPanel = () => {
+  back.style.opacity = '0';
+  back.style.visibility = 'hidden';
+  editPanel.style.top = '-1600px';
+}
 
 //**********//function to clear the input description and input title on cancel or x
 exports.clearAll = () => {
