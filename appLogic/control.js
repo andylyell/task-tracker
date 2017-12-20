@@ -3,8 +3,6 @@ const ui = require('./ui.js');
 const menu = require('./menu.js');
 const data = require('./data.js');
 
-
-
 //************// Main Control Initialisation ************//
 
 //Control the application using event listeners initilisation
@@ -122,6 +120,7 @@ function setUpEventListeners() {
           const id = tick.dataset.taskid;
           tick.addEventListener('click', () => {
             data.completeTask(id);
+            getActiveTasks();
           })
         }
 
@@ -218,11 +217,13 @@ function setUpEventListeners() {
         const id = re.dataset.taskid;
         re.addEventListener('click', () => {
           data.reinstateTask(id);
+          getArchivedTasks();
         })
       }
 
     });
   }
+
 
   //================// Archived tasks ================//
   document.querySelector(ui.DOMstrings.archiveViewButton).addEventListener('click', () => {
@@ -251,39 +252,6 @@ function setUpEventListeners() {
   //================// Add Task //================//
   document.querySelector(ui.DOMstrings.panelConfirm).addEventListener('click', () => {
     data.addTask();
+    ui.closePanel();
   })
-
-
-  //================// Menu ================//
-  // let archiveDoc;
-  // let archiveContainer = document.querySelector(ui.DOMstrings.archiveContainer);
-  // console.log(archiveContainer);
-
-
-  //================// Activate Task ================//
-
-  //================// Delete Task ================//
-  //================// Delete Task ================//
 }
-
-
-
-// document.querySelector(ui.DOMstrings.taskControl).addEventListener('click', () => {
-//   console.log('Task Control button');
-// })
-
-// document.querySelector(ui.DOMstrings.taskCreated).addEventListener('click', () => {
-//   console.log('Task created');
-// })
-
-// document.querySelector(ui.DOMstrings.taskEdit).addEventListener('click', () => {
-//   console.log('Task Edit');
-// })
-
-// document.querySelector(ui.DOMstrings.taskTrash).addEventListener('click', () => {
-//   console.log('Task trash');
-// })
-
-// document.querySelector(ui.DOMstrings.taskDateComplete).addEventListener('click', () => {
-//   console.log('Task Date completed');
-// })

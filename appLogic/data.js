@@ -52,8 +52,9 @@ exports.retrieveActiveTasks = () => {
   });
 }
 
+
 //Function to delete tasks from database
-exports.deleteTask = (e) => {
+exports.deleteTask = () => {
   const tasksToDelete = document.querySelectorAll(ui.DOMstrings.taskTrash);
   for(i=0; i < tasksToDelete.length; i++){
     let task = tasksToDelete[i];
@@ -64,7 +65,6 @@ exports.deleteTask = (e) => {
         } else {
           console.log(`deleted ${task.dataset.taskid}`);
         }
-        e.preventDefault();
       })
     })
   }

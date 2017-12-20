@@ -7,7 +7,7 @@ const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
-require('electron-reload')(__dirname)
+// require('electron-reload')(__dirname)
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
