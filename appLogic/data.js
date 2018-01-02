@@ -55,19 +55,24 @@ exports.retrieveActiveTasks = () => {
 
 //Function to delete tasks from database
 exports.deleteTask = () => {
-  const tasksToDelete = document.querySelectorAll(ui.DOMstrings.taskTrash);
-  for(i=0; i < tasksToDelete.length; i++){
-    let task = tasksToDelete[i];
-    task.addEventListener('click', () => {
-      db.remove({ _id:task.dataset.taskid }, {}, (err, numRemoved) => {
-        if(err){
-          console.log(err)
-        } else {
-          console.log(`deleted ${task.dataset.taskid}`);
-        }
+
+  return new Promise((resolve, reject) => {
+    const tasksToDelete = document.querySelectorAll(ui.DOMstrings.taskTrash);
+    for(i=0; i < tasksToDelete.length; i++){
+      let task = tasksToDelete[i];
+      task.addEventListener('click', () => {
+        db.remove({ _id:task.dataset.taskid }, {}, (err, numRemoved) => {
+          if(err){
+            console.log(err)
+            return reject();
+          } else {
+            console.log(`deleted ${task.dataset.taskid}`);
+          }
+        })
+        resolve();
       })
-    })
-  }
+    }
+  })
 }
 
 let archivedTasks;
@@ -98,16 +103,32 @@ exports.editTasks = (id) => {
   const description = document.querySelector(ui.DOMstrings.editDesc);
 
   document.querySelector(ui.DOMstrings.editConfirm).addEventListener('click', () => {
-    //when confirm is clicked update task back to the database
-    db.update({ _id:id }, { $set: { title:title.value, description:description.value }}, {multi:true}, (err, numReplaced) => {
-      if(err){
-        console.log(err);
-      } else {
-        // console.log(numReplaced);
-      }
-    })
+
+    if(title.value == ''){
+      title.placeholder = 'enter a task title please';
+      title.classList.add('input-error');
+      title.addEventListener('input', () => {
+        if(title.value !== ''){
+          title.classList.remove('input-error');
+        }
+      })
+    } else {
+      //when confirm is clicked update task back to the database
+      db.update({ _id:id }, { $set: { title:title.value, description:description.value }}, {}, (err, numReplaced) => {
+        if(err){
+          console.log(err);
+
+        } else {
+          ui.closeEditPanel();
+          window.location.href="index.html";
+          return;
+        }
+      })
+    }
   })
 }
+
+
 
 //Function to complete tasks
 exports.completeTask = (id) => {

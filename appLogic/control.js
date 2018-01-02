@@ -8,6 +8,17 @@ const data = require('./data.js');
 //Control the application using event listeners initilisation
 setUpEventListeners()
 
+function findRootTaskElement(el) {
+  if (!el) {
+    return null;
+  }
+  if (el.classList && el.classList.contains('task-item-container')) {
+    return el;
+  }
+  return findRootTaskElement(el.parentNode);
+
+}
+
 //store all active event listeners in a function so that they can be turned on and off
 function setUpEventListeners() {
 
@@ -80,7 +91,10 @@ function setUpEventListeners() {
           noTaskContainer.classList.add('disabled');
         }
         //================// Delete Task ================//
-        data.deleteTask();
+        data.deleteTask()
+          .then(() => {
+            getActiveTasks();
+          });
 
         //================// Edit Task ================//
         const editTaskButtons = document.querySelectorAll(ui.DOMstrings.taskEdit);
@@ -89,21 +103,30 @@ function setUpEventListeners() {
           const id = task.dataset.taskid;
           task.addEventListener('click', () => {
             // console.log(id);
-            ui.openEditPanel();
+
+            const taskEl = findRootTaskElement(task);
+
             //get current title
-            const title = task.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.querySelector('.task-item-title h4').innerHTML;
+            const title = taskEl.querySelector('.task-item-title h4').innerHTML;
 
             //get current description
-            const description = task.parentNode.previousSibling.previousSibling.querySelector('.task-item-description p').innerHTML;
+            const description = taskEl.querySelector('.task-item-description p').innerHTML;
 
             //title of task in title box
             document.querySelector(ui.DOMstrings.editTitle).innerHTML = `${title}`;
             //Description of task in description box
             document.querySelector(ui.DOMstrings.editDesc).innerHTML = `${description}`;
 
+            ui.openEditPanel();
+
             data.editTasks(id);
-          })
+            });
+
         }
+
+        //================// Set Edit Task //================//
+
+
         //================// Edit task Panel Control //================//
         document.querySelector(ui.DOMstrings.editExit).addEventListener('click', ui.closeEditPanel);
         document.querySelector(ui.DOMstrings.editCancel).addEventListener('click', ui.closeEditPanel);
@@ -205,7 +228,10 @@ function setUpEventListeners() {
         noTaskContainer.classList.add('disabled');
       }
       //================// Delete Task //================//
-      data.deleteTask();
+      data.deleteTask()
+        .then(() => {
+          getArchivedTasks();
+        });
       //================// Search function //================//
       document.querySelector(ui.DOMstrings.searchField).addEventListener('input', () => {
         ui.searchFunction();
@@ -251,7 +277,24 @@ function setUpEventListeners() {
 
   //================// Add Task //================//
   document.querySelector(ui.DOMstrings.panelConfirm).addEventListener('click', () => {
-    data.addTask();
-    ui.closePanel();
+    const title = document.querySelector(ui.DOMstrings.panelTitle);
+
+    if(title.value == ''){
+        title.placeholder = 'enter a task title please';
+        title.classList.add('input-error');
+        title.addEventListener('input', () => {
+          if(title.value !== ''){
+            title.classList.remove('input-error');
+          }
+        })
+      } else {
+        data.addTask();
+        ui.closePanel();
+        ui.clearAll();
+        const taskView = document.querySelector(ui.DOMstrings.taskViewButton);
+        if(taskView.classList.contains('underline-persist-blue')){
+          getActiveTasks();
+      }
+    }
   })
 }

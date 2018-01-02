@@ -174,6 +174,13 @@ $dgreen: #027E18;
   padding-bottom: 200px;
 }
 
+.input-error {
+  border: 1px solid #F70C4C;
+  &::-webkit-input-placeholder {
+    color: #CB0137;
+  }
+}
+
 .app-container {
   display: block;
   margin: 0 auto;
@@ -298,6 +305,7 @@ $dgreen: #027E18;
   }
 }
 //Search styles
+
 .search {
   &-container {
     padding: 0 20px 10px;
@@ -366,7 +374,7 @@ $dgreen: #027E18;
     margin-top: 60px;
     color: #868686;
 
-    &-image{
+    &-image {
       width: 100px;
       margin-top: 40px;
     }
@@ -506,6 +514,7 @@ $dgreen: #027E18;
 .complete-hover {
   display: flex;
   align-items: center;
+
   &:hover .task-button-date {
     display: inline-block;
   }
@@ -514,6 +523,7 @@ $dgreen: #027E18;
 .create-hover {
   display: flex;
   align-items: center;
+
   &:hover .task-button-date {
     display: inline-block;
   }
@@ -535,11 +545,11 @@ $dgreen: #027E18;
   width: 18px;
 }
 
-.title-archive{
+.title-archive {
   color: $green;
 }
 
-.task-date-green{
+.task-date-green {
   border: 1px solid $green;
 }
 
@@ -561,7 +571,8 @@ $dgreen: #027E18;
 .archive-submit {
   background-color: $green;
   border: 1px solid $green;
-  &:hover{
+
+  &:hover {
     background-color: $dgreen;
     border: 1px solid $dgreen;
   }

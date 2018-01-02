@@ -153,6 +153,14 @@ html {
   padding-bottom: 200px;
 }
 
+.input-error {
+  border: 1px solid #F70C4C;
+}
+
+.input-error::-webkit-input-placeholder {
+  color: #CB0137;
+}
+
 .app-container {
   display: block;
   margin: 0 auto;
