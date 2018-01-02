@@ -1,4 +1,4 @@
-##task-tracker app
+# task-tracker app
 
 This app is built using electron and NeDB as the datastore.
 
